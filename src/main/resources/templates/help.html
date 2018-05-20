@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Shortly - URL shortener</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<h1 id="shortly">Shortly</h1>
+		<p>URL shortener service</p>
+		<h2 id="getting-started">Getting Started</h2>
+		<p>After cloning repository executable jar file with all dependencies is available in target/ directory. If you wish to compile and run simply use Maven:</p>
+		<pre><code>mvn spring-boot:run</code></pre>
+
+		<h3 id="using-the-application">Using the application</h3>
+		<p>Application exposes three REST endpoints: account, register and statistic.</p>
+		<h4 id="post-account">POST /account</h4>
+		<p>Endpoint used for registration of new users. Required headers:</p>
+		<ul><li>Content-Type: application/json</li></ul>
+		<p>Content body must contain AccountId with desired username.</p>
+		<pre><code>{ &quot;AccountId&quot;: &quot;shortly&quot; }</code></pre>
+		<p>If account generation was successful response containing password is sent.</p>
+		<code>
+			{
+				&quot;success&quot;: true,
+				&quot;description&quot;: &quot;Successfully added account&quot;,
+				&quot;password&quot;: &quot;KOgcbJiM&quot;
+			}
+		</code>
+
+		<h4 id="post-register">POST /register</h4>
+		<p>Endpoint for registering new URLs. Required headers:</p>
+		<ul>
+			<li>Content-Type: application/json</li>
+			<li>Authorization: Basic $credentials</li>
+		</ul>
+		</p>
+		<p>Content body can contain:</p>
+		<ul>
+			<li>url - URL to be shortend</li>
+			<li>redirectType - 301 or 302 HTTP status code (default: 302)</li>
+		</ul>
+		</p>
+		<p>Response will contain short URL:</p>
+		<code>
+			{
+				&quot;success&quot;: true,
+				&quot;shortUrl&quot;: &quot;http://shortly.net/Rgm8Bs&quot;
+			}
+		</code>
+
+		<h4 id="get-statisticaccountid">GET /statistic/{AccountId}</h4>
+		<p>Endpoint for retrieving statistics by user. Required headers:</p>
+		<ul>
+			<li>Authorization: Basic $credentials</li>
+		</ul>
+		</p>
+		<p>Response will contain all registered URLs and their hit count:</p>
+		<code>
+			{
+				&quot;https://github.com/srook&quot;: 17,
+				&quot;https://google.com/someverylongquery&quot;: 3
+			}
+		</code>
+
+		<h2 id="running-the-tests">Running the tests</h2>
+		<p>Running test is simple with Maven:</p>
+		<pre><code>mvn test</code></pre>
+
+		<h2 id="authors">Authors</h2>
+		<ul>
+			<li><strong>Saša Rošić</strong> - https://github.com/srook</li>
+		</ul>
+
+		<h2 id="license">License</h2>
+		<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details</p>
+
+
+	</body>
+</html>
